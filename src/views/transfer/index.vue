@@ -37,9 +37,7 @@ const tabBeforeLeave = (value: number) => {
       <div class="view-box-left">
         <img src="@/assets/images/baseViewImg/avatar.jpg" alt="avatar" />
         <span>叶花弈Vue3Template</span>
-        <span class="date-title">更新日期</span>
-        <span class="date-content">2024-02-06 15:35:01</span>
-        <span class="open-application">已开通应用(4)</span>
+        <span class="open-application">已开通应用(2)</span>
         <div class="view-button">
           <el-button type="primary">查看开通应用记录</el-button>
         </div>
@@ -65,6 +63,7 @@ const tabBeforeLeave = (value: number) => {
 <style lang="scss" scoped>
 #transfer {
   height: 100vh;
+  min-height: 900px;
   background-color: rgb(250, 250, 250);
   // 标签页切换栏
   .tabs {
@@ -114,13 +113,6 @@ const tabBeforeLeave = (value: number) => {
       span {
         font-size: 20px;
         font-weight: bold;
-      }
-      .date-title {
-        font-size: 18px;
-        margin: 20px 0;
-      }
-      .date-content {
-        font-size: 14px;
       }
       .open-application {
         position: absolute;
