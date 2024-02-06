@@ -28,7 +28,6 @@ const { VITE_PROJECT_TITLE } = import.meta.env;
 
 // 路由前置拦截守卫(开始)
 router.beforeEach(async (to, from, next) => {
-  console.log("目标路由路径:", to.path);
   const userStore = getUserStore();
   NProgress.start();
   document.title = to.meta.title ?? VITE_PROJECT_TITLE;
@@ -39,8 +38,6 @@ router.beforeEach(async (to, from, next) => {
       next();
     }
   } else {
-    console.log('路由跳转非登录页...')
-    console.log(userStore.token)
     if (userStore.token) {
       if (!userStore.menuRouteData.length) {
         try {
@@ -54,7 +51,7 @@ router.beforeEach(async (to, from, next) => {
             return Promise.reject("无权限");
           }
           // 动态添加路由
-          console.log("正在添加动态路由.....");
+          console.log(`%c>>> 路由前置守卫: 刷新动态路由 <<<`, 'background: tomato; color: #fff; padding: 4px');
           userStore.dynamicRouteData.forEach((item: any) => {
             if (item.meta.isFull) {
               router.addRoute(item);

@@ -29,15 +29,17 @@ const getThemeStore = defineStore("themeStore", {
     menuCollapse: false, // 侧边栏是否收缩
   }),
   actions: {
-    // 设置主题相关具体参数样式
-    // setThemeStyle() {
-    //   Object.keys(themeStyleConfig).forEach((key) => {
-    //     document.body.style.setProperty(
-    //       key,
-    //       themeStyleConfig[key][this.themeName]
-    //     );
-    //   });
-    // },
+    setTheme(theme: string) {
+      this.themeName = theme;
+      console.log(`%c>>> 样式切换,当前主题:[${this.themeName}]`, 'background: black; color: #fff; padding: 4px');
+      // 切换样式
+      // Object.keys(themeStyleConfig).forEach((key) => {
+      //   document.body.style.setProperty(
+      //     key,
+      //     themeStyleConfig[key][this.themeName]
+      //   );
+      // });
+    },
   },
   persist: piniaPersistConfig("themeStore"),
 });
