@@ -84,7 +84,7 @@ Service.interceptors.response.use(
       // token过期
       if (data.code == "19995") {
         const userStore = getUserStore();
-        userStore.loginOut();
+        userStore.signOut();
       }
       return Promise.reject(data);
     }

@@ -35,7 +35,7 @@ const tabBeforeLeave = (value: number) => {
     <div class="view-box">
       <!-- 左侧: 信息栏 -->
       <div class="view-box-left">
-        <img src="@/assets/images/baseViewImg/avatar.gif" alt="avatar" />
+        <img src="@/assets/images/baseViewImg/avatar.jpg" alt="avatar" />
         <span>叶花弈Vue3Template</span>
         <span class="date-title">更新日期</span>
         <span class="date-content">2024-02-06 15:35:01</span>

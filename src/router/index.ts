@@ -28,44 +28,51 @@ const { VITE_PROJECT_TITLE } = import.meta.env;
 
 // 路由前置拦截守卫(开始)
 router.beforeEach(async (to, from, next) => {
+  console.log("目标路由路径:", to.path);
   const userStore = getUserStore();
   NProgress.start();
   document.title = to.meta.title ?? VITE_PROJECT_TITLE;
-  if (userStore.token) {
-    if (!userStore.menuRouteData.length) {
-      try {
-        await userStore.getAuthRoutes();
-        await userStore.getAuthButtons();
-        // 判断当前用户有没有路由表,若无则代表无任何页面权限,提示并直接返回登录页
-        if (!userStore.authRoutes.length) {
-          ElMessage.warning("该用户无任何页面权限");
-          userStore.loginOut();
+  if (to.name === "login") {
+    if (userStore.token) {
+      next("transfer");
+    } else {
+      next();
+    }
+  } else {
+    console.log('路由跳转非登录页...')
+    console.log(userStore.token)
+    if (userStore.token) {
+      if (!userStore.menuRouteData.length) {
+        try {
+          await userStore.getAuthRoutes();
+          await userStore.getAuthButtons();
+          // 判断当前用户有没有路由表,若无则代表无任何页面权限,提示并直接返回登录页
+          if (!userStore.authRoutes.length) {
+            ElMessage.warning("该用户无任何页面权限");
+            userStore.signOut();
+            router.replace("login");
+            return Promise.reject("无权限");
+          }
+          // 动态添加路由
+          console.log("正在添加动态路由.....");
+          userStore.dynamicRouteData.forEach((item: any) => {
+            if (item.meta.isFull) {
+              router.addRoute(item);
+            } else {
+              router.addRoute("layout", item);
+            }
+          });
+        } catch (error) {
+          ElMessage.warning("获取路由表发生错误");
+          userStore.signOut();
           router.replace("login");
           return Promise.reject("无权限");
         }
-        // 动态添加路由
-        console.log("正在添加动态路由.....");
-        userStore.dynamicRouteData.forEach((item: any) => {
-          if (item.meta.isFull) {
-            router.addRoute(item);
-          } else {
-            router.addRoute("layout", item);
-          }
-        });
-      } catch (error) {
-        ElMessage.warning("获取路由表发生错误");
-        userStore.loginOut();
-        router.replace("login");
-        return Promise.reject("无权限");
       }
+      next();
+    } else {
+      next("login");
     }
-    if (to.path === "/login") return next(userStore.menuRouteData[0].name);
-    if (to.path !== "/login") return next();
-  } else {
-    console.log('进入了无token逻辑')
-    // return next("login");
-    // next("/login");
-    next()
   }
 });
 

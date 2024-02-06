@@ -5,11 +5,11 @@
 import Service from "@/api";
 
 // 登录(获取token+路由+按钮权限)
-interface loginRequestType {
+interface signInRequestType {
   username: string;
   password: string;
 }
-export const loginRequest = (data: loginRequestType) => {
+export const signInRequest = (data: signInRequestType) => {
   // return Service({
   //     url: `/background/login`,
   //     method: 'post',
@@ -18,17 +18,15 @@ export const loginRequest = (data: loginRequestType) => {
   return {
     code: 200,
     data: {
-      token:'qwertyuiopasdfghjklzxcvbnm',
-      userInfo:{
-        username:'admin'
-      }
+      token:'QAQTOKEN',
+      userName: '叶花弈'
     },
     message:'success'
   };
 };
 
 // 退出登录
-export const loginOutRequest = () => {
+export const signOutRequest = () => {
   // return Service({
   //   url: `/background/logout`,
   //   method: 'post',

@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { signInRequest, signOutRequest } from "@/api/modules/login";
 import { authRoutesRequest, authButtonsRequest } from "@/api/modules/base";
 const modules = import.meta.glob("@/views/**/*.vue");
 
@@ -9,14 +10,12 @@ const modules = import.meta.glob("@/views/**/*.vue");
  */
 const getUserStore = defineStore("userStore", {
   state: () => ({
-    token: null as null | string,
-    userName: null as null | string,
+    token: localStorage.getItem("token"),
+    userName: localStorage.getItem("userName"),
     authRoutes: [] as any[],
     authButtons: [] as any[],
   }),
   getters: {
-    // 是否已登录
-    isLogin: (state) => () => Boolean(state.token),
     // 1.[初始化]菜单路由表
     menuRouteData: (state) => initMenuRoutes(state.authRoutes),
     // 2.[扁平化+组件路径]动态添加路由表,避免深层页面因前页面无router-view而不展示
@@ -25,12 +24,22 @@ const getUserStore = defineStore("userStore", {
     breadData: (state) => initBreads(state.authRoutes),
   },
   actions: {
+    // 登录
+    async signIn(params: { username: any; password: any }) {
+      const { data } = await signInRequest(params);
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("userName", data.userName);
+      this.token = data.token;
+      this.userName = data.userName;
+    },
     // 退出登录
-    loginOut() {
+    async signOut() {
+      await signOutRequest();
+      localStorage.clear();
       this.token = null;
       this.userName = null;
-      this.authRoutes = []
-      this.authButtons = []
+      this.authRoutes = [];
+      this.authButtons = [];
     },
     // 获取当前账号的路由表
     async getAuthRoutes() {

@@ -1,7 +1,6 @@
 <script setup lang="ts" name="login">
 import type { FormInstance, FormRules } from "element-plus";
 import getUserStore from "@/store/modules/userStore";
-import { loginRequest } from "@/api/modules/login";
 
 const router = useRouter();
 const userStore = getUserStore();
@@ -9,8 +8,8 @@ const userStore = getUserStore();
 // 数据:登录表单
 const loginFormRef = ref<FormInstance>();
 const loginForm = reactive({
-  username: "",
-  password: "",
+  username: null as any,
+  password: null as any,
 });
 const loginRules = reactive<FormRules>({
   username: [{ required: true, message: "请输入账号", trigger: ["blur", "change"] }],
@@ -23,13 +22,8 @@ const handleLogin = (formEl: FormInstance | undefined) => {
   formEl.validate(async (valid) => {
     if (valid) {
       // 1.请求登录API接口
-      const { data } = await loginRequest(loginForm);
-      // 2.存储基本用户信息
-      userStore.$patch({
-        token: data.token,
-        userName: data.userInfo.username,
-      });
-      // 3.跳转到首页
+      userStore.signIn(loginForm);
+      // 2.跳转到中转页
       router.push("transfer");
     }
   });

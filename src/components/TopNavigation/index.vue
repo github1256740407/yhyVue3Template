@@ -2,23 +2,16 @@
 <script setup lang="ts" name="TopNavigation">
 import getUserStore from "@/store/modules/userStore";
 import fullScreen from "@/utils/fullScreen";
-import { loginOutRequest } from "@/api/modules/login";
 
 const userStore = getUserStore();
 const router = useRouter();
 const { VITE_PROJECT_TITLE } = import.meta.env;
 
-const themeIsLight = ref(true)
+const themeIsLight = ref(true);
 
 // 函数:退出登录
-const logOut = async () => {
-  // 1.调用退出登录接口
-  await loginOutRequest();
-
-  // 2.清除存储token
-  userStore.loginOut();
-
-  // 3.重定向到登陆页
+const signOut = async () => {
+  userStore.signOut();
   router.replace("login");
   ElMessage.success("退出登录成功！");
 };
@@ -44,22 +37,24 @@ const logOut = async () => {
           v-model="themeIsLight"
           active-action-icon="Sunny"
           inactive-action-icon="Moon"
-          style="margin-left: 10px;"
+          style="margin-left: 10px"
         />
       </div>
       <!-- 头像账号区域 -->
       <div class="userInfo">
-        <img src="@/assets/images/baseViewImg/avatar.gif" alt="avatar" />
         <el-dropdown>
-          <p class="el-dropdown-link">
-            <span>{{ userStore.userName }}</span>
-            <el-icon>
-              <component is="ArrowDown" />
-            </el-icon>
-          </p>
+          <div style="display: flex">
+            <img src="@/assets/images/baseViewImg/avatar.jpg" alt="avatar" />
+            <p class="el-dropdown-link">
+              <span>{{ userStore.userName }}</span>
+              <el-icon>
+                <component is="ArrowDown" />
+              </el-icon>
+            </p>
+          </div>
           <template #dropdown>
             <el-dropdown-menu>
-              <el-dropdown-item @click="logOut">退出登录</el-dropdown-item>
+              <el-dropdown-item @click="signOut">退出登录</el-dropdown-item>
             </el-dropdown-menu>
           </template>
         </el-dropdown>
