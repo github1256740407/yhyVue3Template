@@ -27,7 +27,7 @@ const logOut = async () => {
   <div id="TopNavigation">
     <!-- Logo -->
     <div class="logo">
-      <img style="margin-top: 10px;" src="https://zhengxin-pub.cdn.bcebos.com/logopic/ee4c67e111940660df63973cb64d756a_fullsize.jpg?x-bce-process=image/resize,m_lfit,w_200" alt="logo" />
+      <img src="https://element-plus.gitee.io/images/element-plus-logo.svg" alt="logo" />
       <span class="line" />
       <span>{{ VITE_PROJECT_TITLE }}</span>
     </div>

@@ -47,7 +47,7 @@ const handleLogin = (formEl: FormInstance | undefined) => {
       <div class="login-form">
         <!-- 登录logo+标题 -->
         <div class="login-logo">
-          <img style="margin-top: 10px;" src="https://zhengxin-pub.cdn.bcebos.com/logopic/ee4c67e111940660df63973cb64d756a_fullsize.jpg?x-bce-process=image/resize,m_lfit,w_200" alt="logo" />
+          <img class="logo-icon" src="https://element-plus.gitee.io/images/element-plus-logo.svg" alt="logo" />
           <h2 class="logo-text">叶花弈Vue3Template</h2>
         </div>
         <!-- 登录表单 -->
@@ -138,15 +138,15 @@ const handleLogin = (formEl: FormInstance | undefined) => {
         display: flex;
         align-items: center;
         justify-content: center;
-
-        .login-icon {
-          width: 90px;
+        margin-bottom: 40px;
+        .logo-icon {
+          width: 180px;
         }
 
         .logo-text {
           padding: 0 0 0 25px;
           margin: 0;
-          font-size: 34px;
+          font-size: 26px;
           font-weight: bold;
           color: #34495e;
           white-space: nowrap;
