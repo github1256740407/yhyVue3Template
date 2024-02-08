@@ -27,7 +27,7 @@ const baseRoute: RouteRecordRaw[] = [
   {
     name: "layout",
     path: "/layout",
-    component: () => import("@/components/Layout/BaseView.vue"),
+    component: () => import("@/layout/BaseView.vue"),
     children: [],
   },
 ];

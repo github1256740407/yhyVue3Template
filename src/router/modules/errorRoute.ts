@@ -8,7 +8,7 @@ const errorRoute: RouteRecordRaw[] = [
     // 无权限
     path: "/403",
     name: "403",
-    component: () => import("@/components/Layout/403.vue"),
+    component: () => import("@/layout/403.vue"),
     meta: {
       title: "403页面",
     },
@@ -17,14 +17,14 @@ const errorRoute: RouteRecordRaw[] = [
     // 网络错误
     path: "/500",
     name: "500",
-    component: () => import("@/components/Layout/500.vue"),
+    component: () => import("@/layout/500.vue"),
     meta: {
       title: "500页面",
     },
   },
   {
     path: "/:pathMatch(.*)*",
-    component: () => import("@/components/Layout/404.vue"),
+    component: () => import("@/layout/404.vue"),
     meta: {
       title: "404页面",
     },

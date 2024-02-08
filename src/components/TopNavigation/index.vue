@@ -1,10 +1,10 @@
 <!-- 顶部导航栏 -->
 <script setup lang="ts" name="TopNavigation">
-import getThemeStore from "@/store/modules/themeStore"
+import getSettingStore from "@/store/modules/settingStore"
 import getUserStore from "@/store/modules/userStore";
 import fullScreen from "@/utils/fullScreen";
 
-const themeSotre = getThemeStore()
+const settingStore = getSettingStore()
 const userStore = getUserStore();
 
 const router = useRouter();
@@ -14,9 +14,9 @@ const { VITE_PROJECT_TITLE } = import.meta.env;
 const themeIsLight = ref(true);
 watch(()=>themeIsLight.value, newValue => {
   if(newValue === true){
-    themeSotre.setTheme('light')
+    settingStore.setTheme('light')
   }else{
-    themeSotre.setTheme('dark')
+    settingStore.setTheme('dark')
   }
 })
 
@@ -145,3 +145,4 @@ const signOut = async () => {
   }
 }
 </style>
+@/store/modules/settingStore

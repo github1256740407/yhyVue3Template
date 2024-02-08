@@ -23,15 +23,19 @@ const themeStyleConfig = {
 /**
  * @description: pinia: 项目主题样式配置信息
  */
-const getThemeStore = defineStore("themeStore", {
+const getSettingStore = defineStore("themeStore", {
   state: () => ({
     themeName: "light", // 主题名称
-    menuCollapse: false, // 侧边栏是否收缩
+    menuCollapse: false, // 侧边栏收缩
   }),
   actions: {
+    /**
+     * @description: 设置主题
+     * @param {light|dark} theme
+     */
     setTheme(theme: string) {
       this.themeName = theme;
-      console.log(`%c>>> 样式切换,当前主题:[${this.themeName}]`, 'background: black; color: #fff; padding: 4px');
+      console.log(`%c>>> 样式切换,当前主题:[${this.themeName}]`, "background: black; color: #fff; padding: 4px");
       // 切换样式
       // Object.keys(themeStyleConfig).forEach((key) => {
       //   document.body.style.setProperty(
@@ -40,8 +44,14 @@ const getThemeStore = defineStore("themeStore", {
       //   );
       // });
     },
+    /**
+     * @description: 设置侧边栏是否收缩
+     */
+    setMenuCollapse(open: boolean) {
+      this.menuCollapse = open;
+    },
   },
-  persist: piniaPersistConfig("themeStore"),
+  persist: piniaPersistConfig("getSettingStore"),
 });
 
-export default getThemeStore;
+export default getSettingStore;
