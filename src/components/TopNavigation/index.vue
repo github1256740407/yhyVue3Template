@@ -128,10 +128,6 @@ const signOut = async () => {
         margin-right: 10px;
         border-radius: 50%;
         cursor: pointer;
-        transition: 0.5s;
-        &:hover {
-          transform: scale(1.2);
-        }
       }
       .el-dropdown-link {
         display: flex;
